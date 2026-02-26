@@ -24,6 +24,12 @@ try {
 
     // Target API URL (กำหนดใน backend/configs/config.php)
     $targetUrl = APPOINTMENT_API_URL;
+
+    if (empty($targetUrl)) {
+        http_response_code(200);
+        echo json_encode([]);
+        exit();
+    }
     
     // Prepare cURL request
     $ch = curl_init();

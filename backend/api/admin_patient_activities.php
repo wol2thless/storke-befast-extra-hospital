@@ -1,24 +1,6 @@
 <?php
-// Set CORS headers
-$allowed_origins = [
-    "http://localhost:5173",
-    "http://10.4.71.176:5173",
-    "http://10.4.71.211:5173",
-    "http://61.19.25.200",
-    "http://172.16.99.200"
-];
-
-header('Content-Type: application/json');
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE');
-header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With, Accept, Origin');
-
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    http_response_code(200);
-    exit();
-}
-
-require_once '../configs/conn.php';
+require_once __DIR__ . '/../configs/cors.php';
+require_once __DIR__ . '/../configs/conn.php';
 
 function verifyAdminToken($conn, $token) {
     if (empty($token)) return false;

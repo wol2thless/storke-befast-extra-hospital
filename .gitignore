@@ -1,3 +1,7 @@
+# Environment & sensitive config
+.env
+backend/configs/config.php
+
 # Logs
 logs
 *.log

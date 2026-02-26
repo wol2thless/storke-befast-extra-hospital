@@ -1,14 +1,5 @@
 <?php
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
-header('Access-Control-Allow-Headers: Content-Type, Authorization');
-header('Content-Type: application/json; charset=utf-8');
-
-// Handle preflight OPTIONS request
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    http_response_code(200);
-    exit();
-}
+require_once __DIR__ . '/../configs/cors.php';
 
 // Only allow POST method for this API
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -17,20 +8,22 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit();
 }
 
+require_once __DIR__ . '/../configs/config.php';
+
 try {
     // Get input data
     $input = file_get_contents('php://input');
     $data = json_decode($input, true);
-    
+
     // Validate required data
     if (!$data || !isset($data['pid'])) {
         http_response_code(400);
         echo json_encode(['error' => 'PID is required']);
         exit();
     }
-    
-    // Target API URL
-    $targetUrl = 'http://192.168.99.225/api/stroke-befast/get_pmk_utable.php';
+
+    // Target API URL (กำหนดใน backend/configs/config.php)
+    $targetUrl = APPOINTMENT_API_URL;
     
     // Prepare cURL request
     $ch = curl_init();

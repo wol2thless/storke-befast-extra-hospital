@@ -1,3 +1,16 @@
+# ==============================================================
+#  React SPA — Apache Rewrite Rules
+#
+#  ถ้า project อยู่ใน subdirectory เช่น /stroke-befast
+#    RewriteBase /stroke-befast
+#    RewriteRule . /stroke-befast/index.html [L]
+#
+#  ถ้า project อยู่ที่ root ของ domain
+#    RewriteBase /
+#    RewriteRule . /index.html [L]
+#
+#  ** แก้ทั้งสองบรรทัดให้ตรงกับ VITE_BASE_PATH ใน .env **
+# ==============================================================
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /stroke-befast

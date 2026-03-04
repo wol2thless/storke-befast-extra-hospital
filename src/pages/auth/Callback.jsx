@@ -21,7 +21,8 @@ const Callback = () => {
   const navigate = useNavigate();
   const params = new URLSearchParams(search);
   const code = params.get("code");
-  const redirect_uri = window.location.origin + "/stroke-befast/core";
+  const basePath = import.meta.env.VITE_BASE_PATH || "/stroke-befast";
+  const redirect_uri = window.location.origin + basePath + "/core";
   const [apiResult, setApiResult] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);

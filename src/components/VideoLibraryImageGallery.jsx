@@ -3,34 +3,36 @@ import React, { useState } from "react";
 const VideoLibraryImageGallery = () => {
   const [selectedImage, setSelectedImage] = useState(null);
 
+  const basePath = import.meta.env.VITE_BASE_PATH || "/stroke-befast";
+
   // ข้อมูลภาพจาก Google Docs
   const images = [
     {
       id: 1,
       title: "สัญญาณเตือนโรคหลอดเลือดสมอง BEFAST",
       description: "อาการและสัญญาณเตือนโรคหลอดเลือดสมอง B.E.F.A.S.T. - ร่วมมือกัน ป้องกัน โรคหลอดเลือดสมอง",
-      src: "/stroke-befast/images/video-library/befast-infographic.jpg",
+      src: `${basePath}/images/video-library/befast-infographic.jpg`,
       category: "stroke_education"
     },
     {
       id: 2,
       title: "อย่าให้ อัมพฤกษ์ อัมพาต",
       description: "อย่าให้ อัมพฤกษ์ อัมพาต",
-      src: "/stroke-befast/images/video-library/stroke001.jpg",
+      src: `${basePath}/images/video-library/stroke001.jpg`,
       category: "stroke_education"
     },
     {
       id: 3,
       title: "อาการหรือสัญญาณเตือนโรคหลอดเลือดสมอง B.E.F.A.S.T.",
       description: "อาการหรือสัญญาณเตือนโรคหลอดเลือดสมอง B.E.F.A.S.T.",
-      src: "/stroke-befast/images/video-library/stroke002.jpg",
+      src: `${basePath}/images/video-library/stroke002.jpg`,
       category: "stroke_education"
     },
     {
       id: 4,
       title: "การป้องกันโรคหลอดเลือดสมอง",
       description: "การป้องกันโรงหลอดเลือดสอมง ทำได้โดยการปรับเปลี่ยนพฤติกรรม",
-      src: "/stroke-befast/images/video-library/stroke003.jpg",
+      src: `${basePath}/images/video-library/stroke003.jpg`,
       category: "stroke_education"
     }
   ];

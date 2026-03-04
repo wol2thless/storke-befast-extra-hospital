@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { FaSearch, FaCode, FaCopy } from 'react-icons/fa';
 import axios from 'axios';
+
+const DIRECT_API_URL = import.meta.env.VITE_HIS_APPOINTMENT_URL || '';
 
 const TestAppointmentAPI = () => {
   const [pid, setPid] = useState('');
@@ -22,10 +24,10 @@ const TestAppointmentAPI = () => {
 
     try {
       const startTime = Date.now();
-      const apiUrl = useProxy 
+      const apiUrl = useProxy
         ? '/api/appointment/get_pmk_utable.php'
-        : 'http://192.168.99.225/api/stroke-befast/get_pmk_utable.php';
-        
+        : DIRECT_API_URL;
+
       const result = await axios.post(
         apiUrl,
         { pid: pid.trim() },
@@ -33,7 +35,7 @@ const TestAppointmentAPI = () => {
           headers: {
             'Content-Type': 'application/json',
           },
-          timeout: 10000, // 10 seconds timeout
+          timeout: 10000,
         }
       );
       const endTime = Date.now();
@@ -53,7 +55,7 @@ const TestAppointmentAPI = () => {
       });
     } catch (err) {
       console.error('API Error:', err);
-      
+
       let errorDetails = {
         message: err.message,
         code: err.code,
@@ -103,6 +105,8 @@ const TestAppointmentAPI = () => {
     return JSON.stringify(obj, null, 2);
   };
 
+  const displayUrl = useProxy ? '/api/appointment/get_pmk_utable.php' : (DIRECT_API_URL || '(ยังไม่ได้ตั้ง VITE_HIS_APPOINTMENT_URL ใน .env)');
+
   return (
     <div className="max-w-4xl mx-auto p-4">
       <div className="mb-6">
@@ -111,24 +115,24 @@ const TestAppointmentAPI = () => {
           API Tester - Appointment
         </h1>
         <p className="text-gray-600">
-          ทดสอบ API: <code className="bg-gray-100 px-2 py-1 rounded">http://192.168.99.225/api/stroke-befast/get_pmk_utable.php</code>
+          ทดสอบการเชื่อมต่อ HIS Appointment API
         </p>
       </div>
 
       {/* Input Section */}
       <div className="bg-base-100 rounded-lg shadow p-6 mb-6">
         <h2 className="text-lg font-semibold mb-4">ป้อนข้อมูลทดสอบ</h2>
-        
+
         <div className="flex gap-2 mb-4">
           <div className="flex-1">
             <label className="block text-sm font-medium mb-2">เลขบัตรประชาชน (PID)</label>
             <input
               type="text"
               className="input input-bordered w-full"
-              placeholder="เช่น 3901100926581"
+              placeholder="เช่น 1234567890123"
               value={pid}
               onChange={(e) => setPid(e.target.value)}
-              onKeyPress={(e) => e.key === 'Enter' && testAPI()}
+              onKeyDown={(e) => e.key === 'Enter' && testAPI()}
             />
           </div>
           <div className="flex items-end">
@@ -159,7 +163,7 @@ const TestAppointmentAPI = () => {
 
         <div className="text-sm text-gray-500">
           <p><strong>Method:</strong> POST</p>
-          <p><strong>URL:</strong> {useProxy ? '/api/appointment/get_pmk_utable.php' : 'http://192.168.99.225/api/stroke-befast/get_pmk_utable.php'}</p>
+          <p><strong>URL:</strong> {displayUrl}</p>
           <p><strong>Content-Type:</strong> application/json</p>
           <p><strong>Body:</strong> {`{ "pid": "${pid || 'PID_VALUE'}" }`}</p>
         </div>
@@ -184,7 +188,6 @@ const TestAppointmentAPI = () => {
           {/* Success Response */}
           {response && (
             <div className="space-y-4">
-              {/* Status Info */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div className="bg-green-50 p-3 rounded">
                   <div className="text-xs text-green-600 font-medium">Status</div>
@@ -208,7 +211,6 @@ const TestAppointmentAPI = () => {
                 </div>
               </div>
 
-              {/* Data Preview */}
               {Array.isArray(response.data) && response.data.length > 0 && (
                 <div>
                   <h3 className="font-semibold mb-2">ตัวอย่างข้อมูล (รายการแรก):</h3>
@@ -227,7 +229,6 @@ const TestAppointmentAPI = () => {
                 </div>
               )}
 
-              {/* Full JSON Response */}
               <div>
                 <h3 className="font-semibold mb-2">Response JSON ทั้งหมด:</h3>
                 <div className="bg-gray-900 text-green-400 p-4 rounded overflow-auto max-h-96">
@@ -235,7 +236,6 @@ const TestAppointmentAPI = () => {
                 </div>
               </div>
 
-              {/* Raw Response Details */}
               <details className="collapse collapse-arrow border border-base-300 bg-base-200">
                 <summary className="collapse-title text-sm font-medium">
                   รายละเอียดการตอบกลับทั้งหมด
@@ -255,15 +255,14 @@ const TestAppointmentAPI = () => {
               <div className="bg-red-50 border border-red-200 rounded p-4">
                 <h3 className="font-semibold text-red-700 mb-2">เกิดข้อผิดพลาด</h3>
                 <p className="text-red-600 mb-2">{error.message}</p>
-                
+
                 {error.code && (
                   <p className="text-sm text-red-500 mb-2">รหัสข้อผิดพลาด: {error.code}</p>
                 )}
 
-                {/* Network Error Suggestions */}
                 {error.type === 'network' && (
                   <div className="mt-4 bg-yellow-50 border border-yellow-200 rounded p-3">
-                    <h4 className="font-medium text-yellow-800 mb-2">💡 วิธีแก้ไขปัญหา Network Error:</h4>
+                    <h4 className="font-medium text-yellow-800 mb-2">วิธีแก้ไขปัญหา Network Error:</h4>
                     <ul className="text-sm text-yellow-700 space-y-1">
                       {error.suggestions?.map((suggestion, index) => (
                         <li key={index} className="flex items-start gap-2">
@@ -275,31 +274,25 @@ const TestAppointmentAPI = () => {
                   </div>
                 )}
 
-                {/* Alternative Testing Methods */}
                 <div className="mt-4 bg-blue-50 border border-blue-200 rounded p-3">
-                  <h4 className="font-medium text-blue-800 mb-2">🔧 วิธีทดสอบทางเลือก:</h4>
+                  <h4 className="font-medium text-blue-800 mb-2">วิธีทดสอบทางเลือก:</h4>
                   <div className="text-sm text-blue-700 space-y-2">
                     <p><strong>1. ทดสอบด้วย curl:</strong></p>
                     <div className="bg-blue-100 p-2 rounded font-mono text-xs overflow-auto">
-                      {`curl -X POST "http://192.168.99.225/api/stroke-befast/get_pmk_utable.php" \\
+                      {`curl -X POST "${displayUrl}" \\
   -H "Content-Type: application/json" \\
   -d '{"pid":"${pid || 'PID_VALUE'}"}'`}
                     </div>
-                    
+
                     <p><strong>2. ทดสอบด้วย Postman:</strong></p>
                     <ul className="ml-4 space-y-1">
-                      <li>• URL: http://192.168.99.225/api/stroke-befast/get_pmk_utable.php</li>
+                      <li>• URL: {displayUrl}</li>
                       <li>• Method: POST</li>
                       <li>• Body: {`{"pid":"${pid || 'PID_VALUE'}"}`}</li>
                     </ul>
-
-                    <p><strong>3. ตรวจสอบการเชื่อมต่อ:</strong></p>
-                    <div className="bg-blue-100 p-2 rounded font-mono text-xs">
-                      ping 192.168.99.225
-                    </div>
                   </div>
                 </div>
-                
+
                 {error.response && (
                   <div className="mt-4">
                     <h4 className="font-medium text-red-700 mb-2">รายละเอียดการตอบกลับ:</h4>
@@ -313,7 +306,7 @@ const TestAppointmentAPI = () => {
                         <div className="text-lg font-bold text-red-700">{error.response.statusText}</div>
                       </div>
                     </div>
-                    
+
                     <div className="bg-gray-900 text-red-400 p-4 rounded overflow-auto max-h-64">
                       <pre className="text-xs">{formatJSON(error.response.data)}</pre>
                     </div>
@@ -324,22 +317,6 @@ const TestAppointmentAPI = () => {
           )}
         </div>
       )}
-
-      {/* Sample PIDs */}
-      <div className="mt-6 bg-blue-50 border border-blue-200 rounded p-4">
-        <h3 className="font-semibold text-blue-700 mb-2">ตัวอย่าง PID สำหรับทดสอบ:</h3>
-        <div className="flex flex-wrap gap-2">
-          {['3901100926581', '1234567890123', '9876543210987'].map((samplePid) => (
-            <button
-              key={samplePid}
-              className="btn btn-sm btn-outline btn-primary"
-              onClick={() => setPid(samplePid)}
-            >
-              {samplePid}
-            </button>
-          ))}
-        </div>
-      </div>
     </div>
   );
 };

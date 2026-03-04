@@ -139,28 +139,32 @@ const AdminLayout = () => {
                 </div>
               </li>
               <div className="divider my-1"></div>
-              <li>
-                <a
-                  href="https://docs.google.com/document/d/1dkDCJHBWbSAF0BPPeE1MtXEyMeahFHte8Wa9p2bEDk4/edit?usp=sharing"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center"
-                >
-                  <FaBook className="w-4 h-4" />
-                  คู่มือผู้ใช้งาน
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://docs.google.com/document/d/1uHCZAEzV2Nf0vgK6IOUVtVTsi9nKJL01U6YAyGZSkU0/edit?usp=sharing"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center"
-                >
-                  <FaBook className="w-4 h-4" />
-                  คู่มือ Admin
-                </a>
-              </li>
+              {import.meta.env.VITE_MANUAL_URL && (
+                <li>
+                  <a
+                    href={import.meta.env.VITE_MANUAL_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center"
+                  >
+                    <FaBook className="w-4 h-4" />
+                    คู่มือผู้ใช้งาน
+                  </a>
+                </li>
+              )}
+              {import.meta.env.VITE_ADMIN_MANUAL_URL && (
+                <li>
+                  <a
+                    href={import.meta.env.VITE_ADMIN_MANUAL_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center"
+                  >
+                    <FaBook className="w-4 h-4" />
+                    คู่มือ Admin
+                  </a>
+                </li>
+              )}
               <div className="divider my-1"></div>
               <li>
                 <button

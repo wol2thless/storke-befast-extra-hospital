@@ -18,7 +18,7 @@ CREATE TABLE `stk_adl_answers` (
   `answer_value`   int(11)      NOT NULL,
   PRIMARY KEY (`id`),
   KEY `assessment_id` (`assessment_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------
 -- stk_adl_assessments
@@ -34,8 +34,9 @@ CREATE TABLE `stk_adl_assessments` (
   `dependency_level` varchar(255)   COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at`       timestamp      NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at`       timestamp      NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  PRIMARY KEY (`id`),
+  KEY `idx_pid` (`pid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------
 -- stk_admin_users  (ต้อง DROP ก่อน sessions เพราะมี FK)
@@ -182,7 +183,7 @@ CREATE TABLE `stk_personinfo` (
   `updated_at`      datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `pid` (`pid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------
 -- stk_satisfaction_survey
@@ -214,6 +215,6 @@ CREATE TABLE `stk_video_view_log` (
   KEY `pid` (`pid`),
   KEY `video_id` (`video_id`),
   KEY `viewed_at` (`viewed_at`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 SET FOREIGN_KEY_CHECKS = 1;

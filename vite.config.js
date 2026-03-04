@@ -12,7 +12,7 @@ export default defineConfig(({ mode }) => {
 
   return {
     plugins: [tailwindcss(), react()],
-    base: "/stroke-befast",
+    base: env.VITE_BASE_PATH || "/stroke-befast",
     resolve: {
       alias: {
         "@":  "/src",

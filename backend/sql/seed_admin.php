@@ -6,7 +6,7 @@
 //  วิธีรัน (browser หรือ CLI):
 //    php seed_admin.php
 //  หรือเปิดผ่าน browser:
-//    http://YOUR_SERVER/stroke-befast/backend/sql/seed_admin.php
+//    http://YOUR_SERVER/{VITE_BASE_PATH}/backend/sql/seed_admin.php
 // ==============================================================
 
 require_once __DIR__ . '/../configs/conn.php';

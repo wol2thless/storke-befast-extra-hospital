@@ -1,11 +1,27 @@
 -- ==============================================================
 --  Stroke-BeFast: Database Schema
---  สร้าง database ชื่อ "stroke" แล้ว import ไฟล์นี้
---  เช่น: mysql -u root -p stroke < schema.sql
+--
+--  วิธี import (เลือกวิธีใดวิธีหนึ่ง):
+--
+--  1. phpMyAdmin:
+--     เปิด phpMyAdmin → แถบ "Import" → เลือกไฟล์นี้ → Go
+--     (ไม่ต้องสร้าง database ก่อน ไฟล์นี้สร้างให้อัตโนมัติ)
+--
+--  2. Command line:
+--     mysql -u root -p < schema.sql
 -- ==============================================================
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- สร้าง database (ถ้ายังไม่มี)
+-- ----------------------------
+CREATE DATABASE IF NOT EXISTS `stroke`
+  CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
+
+USE `stroke`;
 
 -- ----------------------------
 -- stk_adl_answers

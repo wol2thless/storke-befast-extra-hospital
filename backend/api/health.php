@@ -10,9 +10,7 @@
 // ==============================================================
 
 require_once __DIR__ . '/../configs/cors.php';
-setCorsHeaders();
-
-header('Content-Type: application/json; charset=utf-8');
+// cors.php ตั้ง Content-Type และ CORS headers ให้อัตโนมัติแล้ว
 
 $checks = [];
 $allOk  = true;

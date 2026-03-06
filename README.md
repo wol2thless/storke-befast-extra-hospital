@@ -65,19 +65,16 @@ git clone <repository-url> stroke-befast
 
 ### ขั้นตอนที่ 2 — สร้างฐานข้อมูล
 
-1. เปิด phpMyAdmin หรือ MySQL client
-2. สร้าง database ชื่อ `stroke` (หรือชื่ออื่นที่ต้องการ)
-3. Import schema:
+**วิธีที่ 1 — phpMyAdmin** (แนะนำ)
 
-```sql
--- ใน phpMyAdmin: เลือก database stroke → Import → เลือกไฟล์
-backend/sql/schema.sql
-```
+เปิด phpMyAdmin → แถบ **Import** → เลือกไฟล์ `backend/sql/schema.sql` → **Go**
 
-หรือผ่าน command line:
+> ไม่ต้องสร้าง database ก่อน — ไฟล์ schema.sql จะสร้าง database `stroke` พร้อม charset ที่ถูกต้องให้อัตโนมัติ
+
+**วิธีที่ 2 — Command line**
 
 ```bash
-mysql -u root -p stroke < backend/sql/schema.sql
+mysql -u root -p < backend/sql/schema.sql
 ```
 
 ---
@@ -125,6 +122,11 @@ $role        = 'admin';       // admin | staff | supervisor
 
 แล้วรันผ่าน browser:
 
+```
+http://YOUR_SERVER_IP/{VITE_BASE_PATH}/backend/sql/seed_admin.php
+```
+
+เช่น ถ้า `VITE_BASE_PATH=/stroke-befast`:
 ```
 http://YOUR_SERVER_IP/stroke-befast/backend/sql/seed_admin.php
 ```

@@ -15,7 +15,7 @@ if (empty($input['code'])) {
 }
 
 $code = $input['code'];
-$redirectUri = isset($input['redirect_uri']) ? $input['redirect_uri'] : 'http://localhost:5173/auth/core';
+$redirectUri = $input['redirect_uri'] ?? '';
 
 // Call ThaiD API (same as original PHP code)
 $api_url = THAID_API_URL;

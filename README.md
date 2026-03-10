@@ -14,7 +14,7 @@
 | IP หรือ domain ของ server | `192.168.1.10` | `.env`, `config.php` |
 | ชื่อโฟลเดอร์ที่จะวาง project | `stroke-befast` | `.env`, `.htaccess` |
 | username/password MySQL | `root` / `P@ssw0rd` | `config.php` |
-| URL ของ ThaiD API (ถ้ามี) | `https://รพ.go.th/ThaiD/api/` | `config.php` |
+| URL ของ ThaiD API | ใช้ค่าเริ่มต้นได้เลย ไม่ต้องเปลี่ยน | `config.php` |
 | Client ID จาก DOPA (ถ้ามี) | `abc123...` | `.env` |
 | URL ของ HIS นัดหมาย (ถ้ามี) | `http://HIS/api/appoint.php` | `config.php` |
 
@@ -121,8 +121,8 @@ define('DB_NAME', 'stroke');           // ชื่อ database (ไม่ต้
 // API นัดหมาย HIS — ถ้ายังไม่มีให้ใส่ค่าว่าง ''
 define('APPOINTMENT_API_URL', '');
 
-// ThaiD — อ่านรายละเอียดที่ backend/docs/thaid_setup_guide.md
-define('THAID_API_URL', 'https://YOUR_HOSPITAL_DOMAIN/ThaiD/api/');
+// ThaiD — ไม่ต้องแก้ ใช้ค่าเริ่มต้นได้เลย
+define('THAID_API_URL', 'https://hatyaihospital.go.th/ThaiD/api-ext/');
 
 // CORS — ใส่ URL ของ server ที่เปิดระบบ คั่นด้วย |
 define('CORS_ALLOWED_ORIGINS', 'http://YOUR_SERVER_IP');
@@ -296,7 +296,7 @@ endpoint ของ HIS ต้องรับ `POST` และส่งกลั�
 
 | ไฟล์ | ค่าที่ต้องแก้ |
 |------|--------------|
-| `backend/configs/config.php` | `DB_USER`, `DB_PASS`, `THAID_API_URL`, `CORS_ALLOWED_ORIGINS` |
+| `backend/configs/config.php` | `DB_USER`, `DB_PASS`, `CORS_ALLOWED_ORIGINS` (THAID_API_URL ไม่ต้องแก้) |
 | `.env` | `VITE_BASE_PATH`, `VITE_API_BASE_URL`, `VITE_THAID_CLIENT_ID` |
 | `.htaccess` | `RewriteBase` และ `RewriteRule` (ถ้าชื่อโฟลเดอร์ไม่ใช่ `/stroke-befast`) |
 | `backend/sql/seed_admin.php` | `$provider_id`, `$name`, `$password` แล้วลบไฟล์ทิ้ง |

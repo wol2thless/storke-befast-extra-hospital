@@ -17,7 +17,8 @@ define('APPOINTMENT_API_URL', 'http://YOUR_HIS_SERVER_IP/api/path/to/appointment
 // --- ThaiD Authentication ---
 // URL ของ ThaiD API สำหรับยืนยันตัวตนผู้ป่วยผ่านบัตรประชาชน
 // ติดต่อผู้ดูแลระบบ ThaiD ของโรงพยาบาลเพื่อขอ endpoint
-define('THAID_API_URL', 'https://YOUR_HOSPITAL_DOMAIN/ThaiD/api/');
+// อันนี้ไม่ต้องแก้ใช้อันนี้ได้เลยถ้าโรงพยาบาลไม่มีระบบ ThaiD หรือยังไม่พร้อม เพราะระบบจะ fallback ไปใช้การยืนยันตัวตนแบบเดิม (ผ่านฐานข้อมูลภายใน)
+define('THAID_API_URL', 'https://hatyaihospital.go.th/ThaiD/api-ext/');
 
 // --- CORS: origins ที่อนุญาต (frontend URLs) ---
 // ใส่ URL ของ server ที่ deploy frontend ไว้ คั่นด้วย |

@@ -42,7 +42,7 @@ const Callback = () => {
             headers: {
               "Content-Type": "application/json",
             },
-          }
+          },
         );
         // ถ้า success ให้เก็บ token และ user แบบเข้ารหัส พร้อมตั้ง timeout 1 วัน
         if (response.data.success && response.data.responseData) {
@@ -53,27 +53,27 @@ const Callback = () => {
           localStorage.setItem("expires_at", encrypt(expiresAt));
 
           // ตั้ง timeout logout อัตโนมัติ
-          setTimeout(() => {
-            localStorage.removeItem("id_token");
-            localStorage.removeItem("user");
-            localStorage.removeItem("expires_at");
-            navigate("/login");
-          }, 24 * 60 * 60 * 1000);
+          setTimeout(
+            () => {
+              localStorage.removeItem("id_token");
+              localStorage.removeItem("user");
+              localStorage.removeItem("expires_at");
+              navigate("/login");
+            },
+            24 * 60 * 60 * 1000,
+          );
 
           setApiResult(response.data); // set ก่อน navigate
           setLoading(false);
-          // เพิ่ม log
           navigate("/person-info");
           return; // ป้องกัน render ซ้อน
         } else {
           setApiResult(response.data);
           setLoading(false);
-          // เพิ่ม log
         }
       } catch (err) {
         setError(err.message || "API error");
         setLoading(false);
-        // เพิ่ม log
         console.error("[Callback] Exception:", err);
       }
     };

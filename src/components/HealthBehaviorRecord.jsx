@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import useHealthBehaviorStore from "../store/healthBehaviorStore";
-import CryptoJS from "crypto-js";
+import { decrypt } from "@utils/crypto";
 
 const HEALTH_RECOMMENDATIONS = [
   {
@@ -165,16 +165,6 @@ function HealthBehaviorRecord() {
 
   const { saveRecord, fetchRecords, records } = useHealthBehaviorStore();
 
-  // ดึง pid จาก localStorage (user) แบบเข้ารหัส
-  const SECRET_KEY = "stroke-app-key";
-  function decrypt(ciphertext) {
-    try {
-      const bytes = CryptoJS.AES.decrypt(ciphertext, SECRET_KEY);
-      return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-    } catch {
-      return null;
-    }
-  }
   let pid = "";
   try {
     const encryptedUser = localStorage.getItem("user");

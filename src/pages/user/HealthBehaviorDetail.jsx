@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams, useLocation, useNavigate } from "react-router";
 import useHealthBehaviorStore from "../../store/healthBehaviorStore";
-import CryptoJS from "crypto-js";
+import { decrypt } from "@utils/crypto";
 import { decodePidFromUrl } from "../../utils/urlUtils";
 
 
@@ -84,17 +84,6 @@ function HealthBehaviorDetail() {
   
   // ตรวจสอบว่าเป็น admin route หรือไม่
   const isAdminRoute = location.pathname.includes('/admin/');
-
-  // ดึง pid จาก localStorage (user) แบบเข้ารหัส
-  const SECRET_KEY = "stroke-app-key";
-  function decrypt(ciphertext) {
-    try {
-      const bytes = CryptoJS.AES.decrypt(ciphertext, SECRET_KEY);
-      return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-    } catch {
-      return null;
-    }
-  }
 
   useEffect(() => {
     let userPid = "";

@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo } from 'react';
 import { useNavigate, useParams, useLocation } from 'react-router';
 import { FaArrowLeft, FaCalendarAlt, FaClock, FaUserMd } from 'react-icons/fa';
-import CryptoJS from 'crypto-js';
+import { decrypt } from '@utils/crypto';
 import useAppointmentStore from '../../store/appointmentStore';
 import { decodePidFromUrl } from '../../utils/urlUtils';
 
@@ -33,9 +33,7 @@ const AppointmentHistory = () => {
     try {
       const encryptedUser = localStorage.getItem("user");
       if (encryptedUser) {
-        const SECRET_KEY = "stroke-app-key";
-        const bytes = CryptoJS.AES.decrypt(encryptedUser, SECRET_KEY);
-        const u = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+        const u = decrypt(encryptedUser);
         return u?.cid || u?.card_id || u?.pid || "";
       }
     } catch (err) {

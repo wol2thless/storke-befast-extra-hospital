@@ -1,20 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 import api from "@utils/api";
-import CryptoJS from "crypto-js";
-
-const SECRET_KEY = "stroke-app-key";
-
-const encrypt = (data) =>
-  CryptoJS.AES.encrypt(JSON.stringify(data), SECRET_KEY).toString();
-// const decrypt = (ciphertext) => {
-//   try {
-//     const bytes = CryptoJS.AES.decrypt(ciphertext, SECRET_KEY);
-//     return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-//   } catch {
-//     return null;
-//   }
-// };
+import { encrypt } from "@utils/crypto";
 
 const Callback = () => {
   const { search } = useLocation();

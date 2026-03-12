@@ -1,17 +1,6 @@
 import { useEffect } from "react";
-import CryptoJS from "crypto-js";
+import { decrypt } from "@utils/crypto";
 import { useVideoStatsStore } from "../store/videoStatsStore";
-
-// ดึง pid จาก localStorage (แบบเดียวกับ PersonInfoPage)
-const SECRET_KEY = "stroke-app-key";
-const decrypt = (ciphertext) => {
-  try {
-    const bytes = CryptoJS.AES.decrypt(ciphertext, SECRET_KEY);
-    return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-  } catch {
-    return null;
-  }
-};
 
 let pid = null;
 try {

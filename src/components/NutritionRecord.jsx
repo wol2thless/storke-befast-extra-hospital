@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNutritionRecordStore } from "../store/nutritionRecordStore";
-import CryptoJS from "crypto-js";
+import { decrypt } from "@utils/crypto";
 
 const NUTRITION_STATUS = [
   {
@@ -53,16 +53,6 @@ function NutritionRecord() {
   const [loading, setLoading] = useState(false);
   const { saveRecord, fetchRecords, records } = useNutritionRecordStore();
 
-  // ดึง pid จาก localStorage (user) แบบเข้ารหัส
-  const SECRET_KEY = "stroke-app-key";
-  function decrypt(ciphertext) {
-    try {
-      const bytes = CryptoJS.AES.decrypt(ciphertext, SECRET_KEY);
-      return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-    } catch {
-      return null;
-    }
-  }
   let pid = "";
   try {
     const encryptedUser = localStorage.getItem("user");

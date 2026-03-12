@@ -1,19 +1,6 @@
 import { create } from 'zustand';
 import api from '@utils/api';
-import CryptoJS from 'crypto-js';
-
-const SECRET_KEY = 'stroke-admin-key';
-
-const encrypt = (data) => CryptoJS.AES.encrypt(JSON.stringify(data), SECRET_KEY).toString();
-
-const decrypt = (ciphertext) => {
-  try {
-    const bytes = CryptoJS.AES.decrypt(ciphertext, SECRET_KEY);
-    return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-  } catch {
-    return null;
-  }
-};
+import { encrypt, decrypt } from '@utils/crypto';
 
 export const useAdminStore = create((set, get) => ({
   // Admin Authentication State

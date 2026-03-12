@@ -1,18 +1,8 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router";
 import { useBefastStore } from "../store/befastStore";
-import CryptoJS from "crypto-js";
+import { decrypt } from "@utils/crypto";
 import { decodePidFromUrl } from "../utils/urlUtils";
-
-const SECRET_KEY = "stroke-app-key";
-const decrypt = (ciphertext) => {
-  try {
-    const bytes = CryptoJS.AES.decrypt(ciphertext, SECRET_KEY);
-    return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-  } catch {
-    return null;
-  }
-};
 
 const SYMPTOM_LABELS = {
   B: "Balance (ทรงตัวไม่ได้)",

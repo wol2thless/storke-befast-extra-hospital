@@ -2,27 +2,8 @@ import { useEffect, useState } from "react";
 import { usePersonInfoStore } from "../../store/personInfoStore";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useNavigate } from "react-router";
-import CryptoJS from "crypto-js";
+import { encrypt, decrypt } from "@utils/crypto";
 import { maskPhoneNumber } from "../../utils/pdpaUtils";
-
-const SECRET_KEY = "stroke-app-key";
-
-const decrypt = (ciphertext) => {
-  try {
-    const bytes = CryptoJS.AES.decrypt(ciphertext, SECRET_KEY);
-    return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-  } catch {
-    return null;
-  }
-};
-
-const encrypt = (data) => {
-  try {
-    return CryptoJS.AES.encrypt(JSON.stringify(data), SECRET_KEY).toString();
-  } catch {
-    return "";
-  }
-};
 
 const PersonInfoPage = () => {
   const personStore = usePersonInfoStore();

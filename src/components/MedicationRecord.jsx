@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import useMedicationRecordStore from "../store/medicationRecordStore";
-import CryptoJS from "crypto-js";
+import { decrypt } from "@utils/crypto";
 
 const MEDICATION_STATUS = [
   { key: "taken", label: "รับประทานยาตามที่แพทย์สั่งครบถ้วน" },
@@ -33,16 +33,6 @@ function MedicationRecord() {
 
   const { saveRecord, fetchRecords, records } = useMedicationRecordStore();
 
-  // ดึง pid จาก localStorage (user) แบบเข้ารหัส
-  const SECRET_KEY = "stroke-app-key";
-  function decrypt(ciphertext) {
-    try {
-      const bytes = CryptoJS.AES.decrypt(ciphertext, SECRET_KEY);
-      return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-    } catch {
-      return null;
-    }
-  }
   let pid = "";
   try {
     const encryptedUser = localStorage.getItem("user");

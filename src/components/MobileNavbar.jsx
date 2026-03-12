@@ -43,17 +43,7 @@ const navItems = [
 
 import { useEffect, useState } from "react";
 import api from "@utils/api";
-import CryptoJS from "crypto-js";
-
-const SECRET_KEY = "stroke-app-key";
-const decrypt = (ciphertext) => {
-  try {
-    const bytes = CryptoJS.AES.decrypt(ciphertext, SECRET_KEY);
-    return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-  } catch {
-    return null;
-  }
-};
+import { decrypt } from "@utils/crypto";
 
 const MobileNavbar = ({ blockNav: blockNavProp }) => {
   const [blockNav, setBlockNav] = useState(blockNavProp);
@@ -86,7 +76,7 @@ const MobileNavbar = ({ blockNav: blockNavProp }) => {
     }
     try {
       const res = await api.get(
-        `/personinfo_get.php?pid=${encodeURIComponent(pid)}`
+        `/personinfo_get.php?pid=${encodeURIComponent(pid)}`,
       );
       const hasInfo =
         res.data &&
@@ -105,34 +95,24 @@ const MobileNavbar = ({ blockNav: blockNavProp }) => {
   };
 
   return (
-    <nav className="btm-nav fixed bottom-0 left-0 right-0 z-50 bg-base-100 border-t border-base-200 flex justify-between">
+    <nav className="dock dock-sm">
       {navItems.map((item) => {
         const isActive = location.pathname === item.to;
+        const isBlocked = blockNav && item.to !== "/person-info";
         return (
           <button
             key={item.to}
-            className={`flex flex-col items-center justify-center py-2 px-1 min-w-0 flex-1 transition-colors duration-200
-              ${isActive ? "text-primary font-bold" : ""}
-              ${
-                blockNav && item.to !== "/person-info"
-                  ? "text-base-content opacity-60 cursor-not-allowed"
-                  : ""
-              }
-            `}
+            className={`${isActive ? "dock-active" : ""} ${isBlocked ? "opacity-60 cursor-not-allowed" : ""}`}
             onClick={(e) => {
               e.preventDefault();
               checkPersonInfo(item.to);
             }}
-            disabled={blockNav && item.to !== "/person-info"}
-            tabIndex={blockNav && item.to !== "/person-info" ? -1 : 0}
-            aria-disabled={blockNav && item.to !== "/person-info"}
+            disabled={isBlocked}
+            tabIndex={isBlocked ? -1 : 0}
+            aria-disabled={isBlocked}
           >
-            <span className="w-6 h-6 flex items-center justify-center mb-1">
-              {item.icon}
-            </span>
-            <span className="text-[9px] leading-tight text-center truncate max-w-full">
-              {item.label}
-            </span>
+            {item.icon}
+            <span className="dock-label">{item.label}</span>
           </button>
         );
       })}

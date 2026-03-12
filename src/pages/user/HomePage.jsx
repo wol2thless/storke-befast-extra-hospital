@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import CryptoJS from "crypto-js";
+import { decrypt } from "@utils/crypto";
 import BEFASTSummary from "../../components/BEFASTSummary";
 import StrokeVideoStatsDetail from "../../components/StrokeVideoStatsDetail";
 import { useNavigate } from "react-router";
@@ -17,9 +17,7 @@ const HomePage = () => {
     try {
       const encryptedUser = localStorage.getItem("user");
       if (encryptedUser) {
-        const SECRET_KEY = "stroke-app-key";
-        const bytes = CryptoJS.AES.decrypt(encryptedUser, SECRET_KEY);
-        const u = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+        const u = decrypt(encryptedUser);
         return u?.cid || u?.card_id || u?.pid || "";
       }
     } catch (err) {

@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useNavigate, useParams, useLocation } from "react-router";
 import { useNutritionRecordStore } from "@/store/nutritionRecordStore";
+import { decrypt } from "@utils/crypto";
 import { decodePidFromUrl } from "../../utils/urlUtils";
 const NUTRITION_STATUS = [
   {
@@ -39,9 +40,7 @@ function NutritionRecordDetail() {
       try {
         const encryptedUser = localStorage.getItem("user");
         if (encryptedUser) {
-          const SECRET_KEY = "stroke-app-key";
-          const bytes = window.CryptoJS.AES.decrypt(encryptedUser, SECRET_KEY);
-          const u = JSON.parse(bytes.toString(window.CryptoJS.enc.Utf8));
+          const u = decrypt(encryptedUser);
           pid = u?.cid || u?.card_id || u?.pid || "";
         }
       } catch {}

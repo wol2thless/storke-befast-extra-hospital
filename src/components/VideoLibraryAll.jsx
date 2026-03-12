@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router";
-import CryptoJS from "crypto-js";
+import { decrypt } from "@utils/crypto";
 import VideoStatTracker from "./VideoStatTracker";
 import { useVideoStatsStore } from "../store/videoStatsStore";
 
@@ -64,17 +64,6 @@ function VideoLibraryAll() {
   
   const getVideoStats = useVideoStatsStore((s) => s.getVideoStats);
   const stats = useVideoStatsStore((s) => s.stats);
-
-  // ดึง pid จาก localStorage (user) แบบเข้ารหัส
-  const SECRET_KEY = "stroke-app-key";
-  function decrypt(ciphertext) {
-    try {
-      const bytes = CryptoJS.AES.decrypt(ciphertext, SECRET_KEY);
-      return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-    } catch {
-      return null;
-    }
-  }
 
   useEffect(() => {
     // ดึง pid จาก localStorage ทุกครั้งที่ component mount

@@ -152,8 +152,8 @@ VITE_BASE_PATH=/stroke-befast
 # URL ของ backend — ใส่ IP server และชื่อโฟลเดอร์ให้ตรง
 VITE_API_BASE_URL=http://YOUR_SERVER_IP/stroke-befast/backend/api
 
-# ThaiD Client ID — ขอจาก DOPA (ถ้ายังไม่มีเว้นว่างไว้ก่อน)
-VITE_THAID_CLIENT_ID=YOUR_THAID_CLIENT_ID
+# ThaiD Client ID — ใช้ค่านี้ได้เลย ไม่ต้องเปลี่ยน
+VITE_THAID_CLIENT_ID=NjZrZlpoZTdVM2xUSXA0dXZ2YVF0WmIyam1HVnJUcXU
 
 # ลิงก์เสริม — ใส่หรือเว้นว่างก็ได้
 VITE_MANUAL_URL=

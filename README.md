@@ -15,7 +15,7 @@
 | ชื่อโฟลเดอร์ที่จะวาง project | `stroke-befast` | `.env`, `.htaccess` |
 | username/password MySQL | `root` / `P@ssw0rd` | `config.php` |
 | URL ของ ThaiD API | ใช้ค่าเริ่มต้นได้เลย ไม่ต้องเปลี่ยน | `config.php` |
-| Client ID จาก DOPA (ถ้ามี) | `abc123...` | `.env` |
+| Client ID จาก DOPA | ใช้ค่าเริ่มต้นได้เลย ไม่ต้องเปลี่ยน | `.env` |
 | URL ของ HIS นัดหมาย (ถ้ามี) | `http://HIS/api/appoint.php` | `config.php` |
 
 > ThaiD และ HIS ไม่บังคับ — ถ้ายังไม่มีสามารถเว้นว่างไว้ก่อน ระบบยังทำงานได้
